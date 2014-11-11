@@ -1,7 +1,7 @@
 # encoding: utf-8
 require "logstash/outputs/base"
 require "logstash/namespace"
-
+require "logstash/json"
 
 class LogStash::Outputs::Datadog < LogStash::Outputs::Base
   # This output lets you send events (for now. soon metrics) to
@@ -28,7 +28,7 @@ class LogStash::Outputs::Datadog < LogStash::Outputs::Base
 
   # Source type name
   config :source_type_name, :validate => ["nagios", "hudson", "jenkins", "user", "my apps", "feed", "chef", "puppet", "git", "bitbucket", "fabric", "capistrano"], :default => "my apps"
- 
+
   # Alert type
   config :alert_type, :validate => ["info", "error", "warning", "success"]
 
@@ -67,7 +67,7 @@ class LogStash::Outputs::Datadog < LogStash::Outputs::Base
     if @date_happened
       dd_event['date_happened'] = event.sprintf(@date_happened)
     else
-      dd_event['date_happened'] = event["@timestamp"].to_i
+      dd_event['date_happened'] = event.timestamp.to_i
     end
 
     if @dd_tags
@@ -80,9 +80,9 @@ class LogStash::Outputs::Datadog < LogStash::Outputs::Base
     @logger.debug("DataDog event", :dd_event => dd_event)
 
     request = Net::HTTP::Post.new("#{@uri.path}?api_key=#{@api_key}")
-    
+
     begin
-      request.body = dd_event.to_json
+      request.body = LogStash::Json.dump(dd_event)
       request.add_field("Content-Type", 'application/json')
       response = @client.request(request)
       @logger.info("DD convo", :request => request.inspect, :response => response.inspect)
