@@ -12,7 +12,6 @@ class LogStash::Outputs::Datadog < LogStash::Outputs::Base
   #
 
   config_name "datadog"
-  milestone 1
 
   # Your DatadogHQ API key
   config :api_key, :validate => :string, :required => true
