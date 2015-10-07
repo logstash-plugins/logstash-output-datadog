@@ -53,7 +53,7 @@ class LogStash::Outputs::Datadog < LogStash::Outputs::Base
 
   public
   def receive(event)
-    return unless output?(event)
+    
 
 
     dd_event = Hash.new
