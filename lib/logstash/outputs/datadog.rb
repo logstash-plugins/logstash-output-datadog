@@ -47,7 +47,6 @@ class LogStash::Outputs::Datadog < LogStash::Outputs::Base
     @uri = URI.parse(@url)
     @client = Net::HTTP.new(@uri.host, @uri.port)
     @client.use_ssl = true
-    @client.verify_mode = OpenSSL::SSL::VERIFY_NONE
     @logger.debug("Client", :client => @client.inspect)
   end # def register
 
