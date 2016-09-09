@@ -53,9 +53,6 @@ class LogStash::Outputs::Datadog < LogStash::Outputs::Base
 
   public
   def receive(event)
-    
-
-
     dd_event = Hash.new
     dd_event['title'] = event.sprintf(@title)
     dd_event['text'] = event.sprintf(@text)
@@ -72,7 +69,7 @@ class LogStash::Outputs::Datadog < LogStash::Outputs::Base
     if @dd_tags
       tagz = @dd_tags.collect {|x| event.sprintf(x) }
     else
-      tagz = event["tags"]
+      tagz = event.get("tags")
     end
     dd_event['tags'] = tagz if tagz
 
