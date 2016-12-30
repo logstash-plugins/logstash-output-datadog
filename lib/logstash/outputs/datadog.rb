@@ -29,7 +29,7 @@ class LogStash::Outputs::Datadog < LogStash::Outputs::Base
   config :source_type_name, :validate => ["nagios", "hudson", "jenkins", "user", "my apps", "feed", "chef", "puppet", "git", "bitbucket", "fabric", "capistrano"], :default => "my apps"
 
   # Alert type
-  config :alert_type, :validate => ["info", "error", "warning", "success"]
+  config :alert_type, :validate => :string
 
   # Priority
   config :priority, :validate => ["normal", "low"]
