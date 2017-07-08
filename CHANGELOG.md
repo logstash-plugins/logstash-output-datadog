@@ -1,3 +1,9 @@
+## 3.0.2
+  - Docs: Add plugin description
+  
+## 3.0.1
+  - Docs: Fix asciidoc formatting
+
 ## 3.0.0
   - Update to the new plugin api
   - relax constraints on the logstash-core-plugin-api
