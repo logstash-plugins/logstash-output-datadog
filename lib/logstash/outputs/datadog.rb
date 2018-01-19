@@ -82,7 +82,7 @@ class LogStash::Outputs::Datadog < LogStash::Outputs::Base
       request.add_field("Content-Type", 'application/json')
       response = @client.request(request)
       @logger.info("DD convo", :request => request.inspect, :response => response.inspect)
-      raise unless response.code == '200'
+      raise unless response.code =~ /^2\d\d$/
     rescue Exception => e
       @logger.warn("Unhandled exception", :request => request.inspect, :response => response.inspect, :exception => e.inspect)
     end
