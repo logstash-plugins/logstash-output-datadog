@@ -1,6 +1,6 @@
 # Logstash Plugin
 
-[![Travis Build Status](https://travis-ci.org/logstash-plugins/logstash-output-datadog.svg)](https://travis-ci.org/logstash-plugins/logstash-output-datadog)
+[![Travis Build Status](https://travis-ci.com/logstash-plugins/logstash-output-datadog.svg)](https://travis-ci.com/logstash-plugins/logstash-output-datadog)
 
 This is a plugin for [Logstash](https://github.com/elastic/logstash).
 
