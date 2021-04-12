@@ -61,7 +61,7 @@ class LogStash::Outputs::Datadog < LogStash::Outputs::Base
     dd_event['priority'] = @priority if @priority
 
     if @date_happened
-      dd_event['date_happened'] = event.sprintf(@date_happened)
+      dd_event['date_happened'] = event.sprintf(@date_happened).to_i
     else
       dd_event['date_happened'] = event.timestamp.to_i
     end
