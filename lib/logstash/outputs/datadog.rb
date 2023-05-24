@@ -14,7 +14,7 @@ class LogStash::Outputs::Datadog < LogStash::Outputs::Base
   config_name "datadog"
 
   # Your DatadogHQ API key
-  config :api_key, :validate => :string, :required => true
+  config :api_key, :validate => :password, :required => true
 
   # Title
   config :title, :validate => :string, :default => "Logstash event for %{host}"
@@ -75,7 +75,7 @@ class LogStash::Outputs::Datadog < LogStash::Outputs::Base
 
     @logger.debug("DataDog event", :dd_event => dd_event)
 
-    request = Net::HTTP::Post.new("#{@uri.path}?api_key=#{@api_key}")
+    request = Net::HTTP::Post.new("#{@uri.path}?api_key=#{@api_key.value}")
 
     begin
       request.body = LogStash::Json.dump(dd_event)
