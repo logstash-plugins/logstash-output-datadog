@@ -29,7 +29,7 @@ class LogStash::Outputs::Datadog < LogStash::Outputs::Base
   config :source_type_name, :validate => ["nagios", "hudson", "jenkins", "user", "my apps", "feed", "chef", "puppet", "git", "bitbucket", "fabric", "capistrano"], :default => "my apps"
 
   # Alert type
-  config :alert_type, :validate => ["info", "error", "warning", "success"]
+  config :alert_type, :validate => :string, :default => "info"
 
   # Priority
   config :priority, :validate => ["normal", "low"]
@@ -57,7 +57,7 @@ class LogStash::Outputs::Datadog < LogStash::Outputs::Base
     dd_event['title'] = event.sprintf(@title)
     dd_event['text'] = event.sprintf(@text)
     dd_event['source_type_name'] = @source_type_name
-    dd_event['alert_type'] = @alert_type if @alert_type
+    dd_event['alert_type'] = event.sprintf(@alert_type)
     dd_event['priority'] = @priority if @priority
 
     if @date_happened
